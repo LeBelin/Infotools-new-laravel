@@ -11,9 +11,10 @@ Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
-    Route::view('Clients', 'clients')
+    Route::view('clients', 'clients')
     ->middleware(['auth', 'verified'])
     ->name('clients');
+
 
     Route::view('Prospects', 'prospects')
     ->middleware(['auth', 'verified'])
