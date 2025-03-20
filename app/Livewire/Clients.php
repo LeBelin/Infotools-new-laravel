@@ -13,6 +13,8 @@ class Clients extends Component
     public $clients;
     public $clientId;
     public $clientName;
+    public $showSuccessMessage = false;
+    
     // Affichage des clients
     public function mount()
     {
@@ -56,5 +58,6 @@ class Clients extends Component
         Client::find($this->clientId)->delete();
         Flux::modal('delete-client')->close();
         $this->reloadClients();
+        $this->showSuccessMessage = true;
     }
 }

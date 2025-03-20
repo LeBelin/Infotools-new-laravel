@@ -14,6 +14,7 @@ class ClientEdit extends Component
     public $telephone;
     public $adresse;
     public $clientId;
+    public $showSuccessMessage = false;
 
     public function render()
     {
@@ -52,5 +53,7 @@ class ClientEdit extends Component
 
         Flux::modal('edit-client')->close();
         $this->dispatch('reloadClients');
+
+        $this->showSuccessMessage = true;
     }
 }

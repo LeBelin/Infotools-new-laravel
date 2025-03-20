@@ -12,6 +12,7 @@ class ClientCreate extends Component
     public $email;
     public $telephone;
     public $adresse;
+    public $showSuccessMessage = false;
 
     public function render()
     {
@@ -34,6 +35,7 @@ class ClientCreate extends Component
             'adresse' => $this->adresse,
         ]);
 
+        $this->showSuccessMessage = true;
         $this->resetForm();
 
         Flux::modal("create-client")->close();

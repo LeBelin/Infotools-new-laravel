@@ -1,4 +1,11 @@
 <div>
+    
+    @if($showSuccessMessage)
+    <div style="padding: 5px;"></div>
+        <flux:callout variant="success" icon="check-circle" heading="Client modifié avec succès !" />
+        <div style="padding: 5px;"></div>
+    @endif
+
 
     <flux:modal name="edit-client" class="md:w-150">
         <div class="space-y-6">

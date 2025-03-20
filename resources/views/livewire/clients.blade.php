@@ -1,14 +1,21 @@
+
 <div>
 
     <flux:modal.trigger name="create-client">
-        <flux:button>Crée un client</flux:button>
+        <flux:button variant="primary">Crée un client</flux:button>
     </flux:modal.trigger>
     <!-- crée le client dans le dossier livewire -->
     <livewire:client-create />
     <!-- edit le client dans le dossier livewire -->
     <livewire:client-edit />
 
-    
+
+    @if($showSuccessMessage)
+        <div style="padding: 5px;"></div>
+        <flux:callout variant="success" icon="check-circle" heading="Client supprimé avec succès !" />
+        <div style="padding: 5px;"></div>
+    @endif
+
     <flux:modal name="delete-client" class="min-w-[22rem]">
         <div class="space-y-6">
         @if($clientId)
@@ -32,7 +39,10 @@
             </div>
         </div>
     </flux:modal>
-    
+
+    <div style="padding: 5px;"></div>
+    <flux:input kbd="⌘K" icon="magnifying-glass" placeholder="Search..."/>
+    <div style="padding: 5px;"></div>
 
     <div class="overflow-x-auto">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -43,6 +53,7 @@
                     <th scope="col" class="px-6 py-3">Email</th>
                     <th scope="col" class="px-6 py-3">Téléphone</th>
                     <th scope="col" class="px-6 py-3">Adresse</th>
+                    <th scope="col" class="px-6 py-3">Action</th>
                 </tr>
             </thead>
             <tbody>
