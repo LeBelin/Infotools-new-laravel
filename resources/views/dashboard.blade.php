@@ -1,4 +1,9 @@
 <x-layouts.app :title="__('Dashboard')">
+<div class="relative mb-6 w-full">
+        <flux:heading size="xl" level="1">Tableau de bord</flux:heading>
+        <flux:subheading size="lg" class="mb-6">Bonjours, {{ auth()->user()->name }}</flux:subheading>
+        <flux:separator variant="subtle" />
+    </div>
     <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
         <div class="grid auto-rows-min gap-4 md:grid-cols-3">
             
@@ -13,7 +18,7 @@
                     <p class="text-gray-600">Nombre de Clients :</p>
                     <span class="text-2xl font-bold">{{ $clientCount }}</span>
                     <p class="text-gray-600">Nombre de Produits :</p>
-                    <span class="text-2xl font-bold">{{ $clientCount }}</span>
+                    <span class="text-2xl font-bold">{{ $produitCount }}</span>
                     <p class="text-gray-600">Nombre de Commande :</p>
                     <span class="text-2xl font-bold">{{ $clientCount }}</span>
                 </div>

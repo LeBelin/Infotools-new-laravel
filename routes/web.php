@@ -16,22 +16,21 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('clients');
 
-
-    Route::view('Prospects', 'prospects')
-    ->middleware(['auth', 'verified'])
-    ->name('prospects');
-
-    Route::view('Commerciaux', 'commerciaux')
-    ->middleware(['auth', 'verified'])
-    ->name('commerciaux');
-
-    Route::view('Produits', 'produits')
+    Route::view('produits', 'produits')
     ->middleware(['auth', 'verified'])
     ->name('produits');
 
-    Route::view('Commande', 'commande')
+    Route::view('commandes', 'commandes')
     ->middleware(['auth', 'verified'])
-    ->name('commande');
+    ->name('commandes');
+
+    Route::view('factures', 'factures')
+    ->middleware(['auth', 'verified'])
+    ->name('factures');
+
+    Route::view('rendez_vous', 'rendez_vous')
+    ->middleware(['auth', 'verified'])
+    ->name('rendez_vous');
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
