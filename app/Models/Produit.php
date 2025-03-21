@@ -10,4 +10,8 @@ class Produit extends Model
     protected $fillable = ['nom_produit', 'description', 'prix', 'stock', 'created_at', 'updated_at'];
 
     // Other model methods and properties
+    public function commandes()
+    {
+        return $this->hasMany(Commande::class);
+    }
 }
