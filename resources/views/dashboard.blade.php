@@ -22,9 +22,9 @@
                     <p class="text-gray-600">Nombre de Commande :</p>
                     <span class="text-2xl font-bold">{{ $commandeCount }}</span>
                     <p class="text-gray-600">Nombre de Facture :</p>
-                    <span class="text-2xl font-bold">{{ $factureCount }}</span>
+                    <!--<span class="text-2xl font-bold">{{ $factureCount }}</span>-->
                     <p class="text-gray-600">Nombre de Rendez vous :</p>
-                    <span class="text-2xl font-bold">{{ $rendezvousCount }}</span>
+                    <!--<span class="text-2xl font-bold">{{ $rendezvousCount }}</span>-->
                 </div>
             </div>
 
