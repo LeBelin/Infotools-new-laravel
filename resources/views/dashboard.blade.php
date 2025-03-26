@@ -3,9 +3,6 @@
 <style>
     .products {
         padding: 20px;
-        background-color: #f9f9f9;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
     .products-title {
@@ -47,7 +44,7 @@
 
     .product-price {
         font-size: 16px;
-        color: #e74c3c;
+        color: #00bcff;
         font-weight: bold;
     }
 
