@@ -44,7 +44,7 @@
 
     .product-price {
         font-size: 16px;
-        color: #00bcff;
+        color: #51a2ff;
         font-weight: bold;
     }
 
