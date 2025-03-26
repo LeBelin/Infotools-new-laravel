@@ -17,6 +17,7 @@ Route::get('/', function () {
 })->name('home');  // Donne un nom à cette route
 
 
+
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');

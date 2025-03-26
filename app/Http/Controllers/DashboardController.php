@@ -16,7 +16,15 @@ class DashboardController extends Controller
         $produitCount = Produit::count();
         $commandeCount = Commande::count();
 
+        // Récupérer les 3 derniers produits
+        $products = Produit::latest()->take(3)->get();
+
         // Pass the client count to the view
-        return view('dashboard', compact('clientCount', 'produitCount', 'commandeCount'));
+        return view('dashboard', compact('clientCount', 'produitCount', 'commandeCount', 'products'));
+
+
+
+    
+
     }
 }
