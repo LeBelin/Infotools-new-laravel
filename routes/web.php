@@ -3,10 +3,19 @@
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 use App\Http\Controllers\DashboardController;
+use App\Models\Produit;
+
+//Route::get('/', function () {
+//    return view('welcome');
+//})->name('home');
+
+
 
 Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+    $products = Produit::all();  // Récupère tous les produits
+    return view('welcome', compact('products'));  // Passe les produits à la vue
+})->name('home');  // Donne un nom à cette route
+
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
