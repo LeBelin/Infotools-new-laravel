@@ -52,5 +52,9 @@
         </div>
     </section>
 
+    <footer>
+        <p class="footer-text">© 2025 Infotools. Tous droits réservés.</p>
+    </footer>
+
 </body>
 </html>
