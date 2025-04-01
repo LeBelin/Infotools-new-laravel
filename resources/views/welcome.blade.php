@@ -32,8 +32,8 @@
 
     <!-- Section Présentation -->
     <section class="presentation">
-        <h1 class="title">Bienvenue sur notre boutique</h1>
-        <p class="description">Découvrez nos derniers produits et offres exclusives.</p>
+        <h1 class="title">Bienvenue sur notre boutique infotools</h1>
+        <p class="description">Découvrez nos derniers produits.</p>
     </section>
 
     <!-- Section Derniers Produits -->
