@@ -13,7 +13,7 @@ class ProspectEdit extends Component
     public $email;
     public $telephone;
     public $adresse;
-    public $clientId;
+    public $prospectId;
     public $showSuccessMessage = false;
 
     public function render()
