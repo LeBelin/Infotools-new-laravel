@@ -22,6 +22,14 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
+    Route::view('prospects', 'prospects')
+    ->middleware(['auth', 'verified'])
+    ->name('prospects');
+
+    Route::view('commerciaux', 'commerciaux')
+    ->middleware(['auth', 'verified'])
+    ->name('commerciaux');
+
     Route::view('clients', 'clients')
     ->middleware(['auth', 'verified'])
     ->name('clients');
