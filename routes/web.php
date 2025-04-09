@@ -46,9 +46,9 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('factures');
 
-    Route::view('rendez_vous', 'rendez_vous')
+    Route::view('rendezvous', 'rendezvous')
     ->middleware(['auth', 'verified'])
-    ->name('rendez_vous');
+    ->name('rendezvous');
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
