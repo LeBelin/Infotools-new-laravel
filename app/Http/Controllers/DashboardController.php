@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use App\Models\Produit;
 use App\Models\Commande;
+use App\Models\Rendezvous;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -15,16 +16,14 @@ class DashboardController extends Controller
         $clientCount = Client::count();
         $produitCount = Produit::count();
         $commandeCount = Commande::count();
+        $rdvCount = Commande::count();
 
-        // Récupérer les 3 derniers produits
+        // Récupérer les 3 derniers
         $products = Produit::latest()->take(3)->get();
+        $rendezvous = Rendezvous::latest()->take(3)->get();
 
         // Pass the client count to the view
-        return view('dashboard', compact('clientCount', 'produitCount', 'commandeCount', 'products'));
-
-
-
-    
+        return view('livewire.dashboard', compact('clientCount', 'produitCount', 'commandeCount', 'products', 'rendezvous', 'rdvCount'));    
 
     }
 }

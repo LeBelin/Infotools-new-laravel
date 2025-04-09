@@ -14,6 +14,11 @@ class Client extends Model
     public function commandes()
     {
         return $this->hasMany(Commande::class);
+    }
+    
+    public function rendezvous()
+    {
         return $this->hasMany(Rendezvous::class);
     }
+    
 }

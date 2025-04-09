@@ -15,6 +15,7 @@ class Rendezvous extends Model
     }
 // Si le nom de la table est différent de "rendezvouses"
 protected $table = 'rendez_vous';  // Remplace par le nom correct de la table
+
 }
 
 
