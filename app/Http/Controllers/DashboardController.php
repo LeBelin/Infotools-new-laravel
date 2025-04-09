@@ -16,7 +16,7 @@ class DashboardController extends Controller
         $clientCount = Client::count();
         $produitCount = Produit::count();
         $commandeCount = Commande::count();
-        $rdvCount = Commande::count();
+        $rdvCount = Rendezvous::count();
 
         // Récupérer les 3 derniers
         $products = Produit::latest()->take(3)->get();

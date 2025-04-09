@@ -84,8 +84,8 @@
                             <flux:badge color="Zinc">{{ $rendezvous->id }}</flux:badge>
                         </td>
                         <td class="px-6 py-2 text-gray-600 dark:text-gray-300">{{ $rendezvous->client->nom }}</td>
-                        <td class="px-6 py-2 text-gray-600 dark:text-gray-300">{{ $rendezvous->date_rendez_vous }}</td>
-                        <td class="px-6 py-2 text-gray-600 dark:text-gray-300">{{ $rendezvous->heure_rendez_vous }}</td>
+                        <td class="px-6 py-2 text-gray-600 dark:text-gray-300"><flux:badge color="amber">{{ \Carbon\Carbon::parse($rendezvous->date_rendez_vous)->locale('fr')->isoFormat('D MMMM YYYY') }}</flux:badge></td>
+                        <td class="px-6 py-2 text-gray-600 dark:text-gray-300"><flux:badge color="green">{{ \Carbon\Carbon::parse($rendezvous->heure_rendez_vous)->locale('fr')->isoFormat('HH:mm') }}</flux:badge></td>
                         <td class="px-6 py-2 text-gray-600 dark:text-gray-300">{{ $rendezvous->description }}</td>
                         <td class="px-6 py-2 text-gray-600 dark:text-gray-300">
                             {{ \Carbon\Carbon::parse($rendezvous->created_at)->locale('fr')->isoFormat('D MMMM YYYY à HH:mm') }}
