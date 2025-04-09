@@ -12,14 +12,14 @@
             </a>
 
             <flux:navlist variant="outline">
-                <flux:navlist.group :heading="__('Platform')" class="grid">
+                <flux:navlist.group :heading="__('Tableau de bord')" class="grid">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Tableau de bord') }}</flux:navlist.item>
-                    <flux:navlist.item icon="home" :href="route('prospects')" :current="request()->routeIs('prospects')" wire:navigate>{{ __('Prospects') }}</flux:navlist.item>
-                    <flux:navlist.item icon="home" :href="route('commerciaux')" :current="request()->routeIs('commerciaux')" wire:navigate>{{ __('Commerciaux') }}</flux:navlist.item>
-                    <flux:navlist.item icon="home" :href="route('clients')" :current="request()->routeIs('clients')" wire:navigate>{{ __('Clients') }}</flux:navlist.item>
-                    <flux:navlist.item icon="home" :href="route('produits')" :current="request()->routeIs('produits')" wire:navigate>{{ __('Produits') }}</flux:navlist.item>
-                    <flux:navlist.item icon="home" :href="route('commandes')" :current="request()->routeIs('commandes')" wire:navigate>{{ __('Commandes') }}</flux:navlist.item>
-                    <flux:navlist.item icon="home" :href="route('rendezvous')" :current="request()->routeIs('rendezvous')" wire:navigate>{{ __('Rendez vous') }}</flux:navlist.item>
+                    <flux:navlist.item icon="users" :href="route('prospects')" :current="request()->routeIs('prospects')" wire:navigate>{{ __('Prospects') }}</flux:navlist.item>
+                    <flux:navlist.item icon="briefcase" :href="route('commerciaux')" :current="request()->routeIs('commerciaux')" wire:navigate>{{ __('Commerciaux') }}</flux:navlist.item>
+                    <flux:navlist.item icon="user" :href="route('clients')" :current="request()->routeIs('clients')" wire:navigate>{{ __('Clients') }}</flux:navlist.item>
+                    <flux:navlist.item icon="shopping-bag" :href="route('produits')" :current="request()->routeIs('produits')" wire:navigate>{{ __('Produits') }}</flux:navlist.item>
+                    <flux:navlist.item icon="shopping-cart" :href="route('commandes')" :current="request()->routeIs('commandes')" wire:navigate>{{ __('Commandes') }}</flux:navlist.item>
+                    <flux:navlist.item icon="calendar" :href="route('rendezvous')" :current="request()->routeIs('rendezvous')" wire:navigate>{{ __('Rendez vous') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
             
