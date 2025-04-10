@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 use App\Http\Controllers\DashboardController;
 use App\Models\Produit;
+use App\Http\Controllers\CommandeController;
 
 //Route::get('/', function () {
 //    return view('welcome');
@@ -49,6 +50,8 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
     Route::view('rendezvous', 'rendezvous')
     ->middleware(['auth', 'verified'])
     ->name('rendezvous');
+
+    Route::get('/commande/{id}/facture', [CommandeController::class, 'showInvoice'])->name('commande.facture');
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');

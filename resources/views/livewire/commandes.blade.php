@@ -59,6 +59,7 @@
                     <th class="px-6 py-3">Client</th>
                     <th class="px-6 py-3">Produits</th>
                     <th class="px-6 py-3">Montant total</th>
+                    <th class="px-6 py-3">Facture</th>
                     <th class="px-6 py-3">Créée le</th>
                     <th class="px-6 py-3">Modifiée le</th>
                     <th class="px-6 py-3">Actions</th>
@@ -87,6 +88,13 @@
                         <td class="px-6 py-2 text-gray-600 dark:text-gray-300">
                             <flux:badge color="lime">{{ number_format($commande->montant_total, 2) }} €</flux:badge>
                         </td>
+                        <td class="px-6 py-2">
+    <!-- Remplacer le wire:click par un lien vers la route de la facture -->
+    <a href="{{ route('commande.facture', $commande->id) }}">
+        <flux:button size="sm" icon="arrow-down-tray">Facture</flux:button>
+    </a>
+</td>
+
                         <td class="px-6 py-2 text-gray-600 dark:text-gray-300">
                             {{ \Carbon\Carbon::parse($commande->created_at)->locale('fr')->isoFormat('D MMMM YYYY à HH:mm') }}
                         </td>

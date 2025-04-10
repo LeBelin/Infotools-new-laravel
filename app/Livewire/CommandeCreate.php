@@ -30,28 +30,29 @@ class CommandeCreate extends Component
         ];
     }
     
-    // Lorsqu'il y a un changement dans la liste des produits, on met à jour le prix unitaire et on recalcule le total
-    public function updatedProduits()
-    {
-        foreach ($this->produits as $index => $produit) {
-            if (!empty($produit['produit_id'])) {
-                // Trouver le produit dans la base de données et mettre à jour le prix unitaire
-                $p = Produit::find($produit['produit_id']);
-                $this->produits[$index]['prix_unitaire'] = $p ? $p->prix : 0.00;
-            }
+// Lorsqu'il y a un changement dans la liste des produits, on met à jour le prix unitaire et on recalcule le total
+public function updatedProduits()
+{
+    foreach ($this->produits as $index => $produit) {
+        if (!empty($produit['produit_id'])) {
+            // Trouver le produit dans la base de données et mettre à jour le prix unitaire
+            $p = Produit::find($produit['produit_id']);
+            $this->produits[$index]['prix_unitaire'] = $p ? $p->prix : 0.00;
         }
-
-        // Calculer le montant total
-        $this->calculateTotal();
     }
 
-    // Calcul du montant total de la commande en fonction des produits
-    public function calculateTotal()
-    {
-        $this->montant_total = collect($this->produits)->sum(function ($p) {
-            return (float) $p['prix_unitaire'] * (int) $p['quantite'];
-        });
-    }
+    // Calculer le montant total
+    $this->calculateTotal();
+}
+
+// Calcul du montant total de la commande en fonction des produits
+public function calculateTotal()
+{
+    $this->montant_total = collect($this->produits)->sum(function ($p) {
+        return (float) $p['prix_unitaire'] * (int) $p['quantite'];
+    });
+}
+
 
     // Ajouter un produit à la commande
     public function addProduit()

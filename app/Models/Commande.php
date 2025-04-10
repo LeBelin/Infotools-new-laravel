@@ -22,4 +22,5 @@ class Commande extends Model
                     ->withPivot('quantite', 'prix_unitaire')
                     ->withTimestamps();
     }
+    
 }
