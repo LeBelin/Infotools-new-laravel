@@ -6,84 +6,124 @@ use Livewire\Component;
 use App\Models\Commande;
 use App\Models\Client;
 use App\Models\Produit;
+use Illuminate\Support\Facades\DB;
 use Flux;
 
 class CommandeCreate extends Component
 {
-    public $client_id;
-    public $produit_id;
-    public $quantite = 1;  // Initialiser à 1 pour ne pas avoir de valeur vide
-    public $montant = 0;
-    public $showSuccessMessage = false;
     public $clients;
-    public $produits;
-    public $prix_produit = 0;
+    public $client_id;
+    public $produits = [];
+    public $montant_total = 0.00;
+    public $produitList;
+    public $showSuccessMessage = false;
 
     public function mount()
     {
-        // Charger les clients et produits depuis la base de données
+        // Charge les clients
         $this->clients = Client::all();
-        $this->produits = Produit::all();
+        $this->produitList = Produit::all();
+    
+        // Initialisation de la variable produits
+        $this->produits = [
+            ['produit_id' => '', 'quantite' => 1, 'prix_unitaire' => 0.00],
+        ];
     }
-
-    public function updatedProduitId($produitId)
+    
+    // Lorsqu'il y a un changement dans la liste des produits, on met à jour le prix unitaire et on recalcule le total
+    public function updatedProduits()
     {
-        // Récupérer le prix du produit sélectionné
-        $produit = Produit::find($produitId);
-        $this->prix_produit = $produit ? $produit->prix : 0;
+        foreach ($this->produits as $index => $produit) {
+            if (!empty($produit['produit_id'])) {
+                // Trouver le produit dans la base de données et mettre à jour le prix unitaire
+                $p = Produit::find($produit['produit_id']);
+                $this->produits[$index]['prix_unitaire'] = $p ? $p->prix : 0.00;
+            }
+        }
 
-        // Recalculer le montant à chaque fois que le produit change
-        $this->updateMontant();
+        // Calculer le montant total
+        $this->calculateTotal();
     }
 
-    public function updatedQuantite($quantite)
+    // Calcul du montant total de la commande en fonction des produits
+    public function calculateTotal()
     {
-        // Recalculer le montant chaque fois que la quantité change
-        $this->updateMontant();
+        $this->montant_total = collect($this->produits)->sum(function ($p) {
+            return (float) $p['prix_unitaire'] * (int) $p['quantite'];
+        });
     }
 
-    public function updateMontant()
+    // Ajouter un produit à la commande
+    public function addProduit()
     {
-        // Calculer le montant en fonction de la quantité et du prix
-        $this->montant = $this->quantite * $this->prix_produit;
+        $this->produits[] = ['produit_id' => '', 'quantite' => 1, 'prix_unitaire' => 0.00];
     }
 
-    public function render()
+    // Supprimer un produit de la commande
+    public function removeProduit($index)
     {
-        return view('livewire.commande-create');
+        unset($this->produits[$index]);
+        $this->produits = array_values($this->produits); // Réindexation de l'array
+        $this->calculateTotal();
     }
 
+    // Soumettre la commande
     public function submit()
     {
-        // Valider les données du formulaire
+        // Validation des données de la commande
         $this->validate([
-            'client_id' => 'required',
-            'produit_id' => 'required',
-            'quantite' => 'required|numeric|min:1',
-            'montant' => 'required|numeric',
+            'client_id' => 'required|exists:clients,id',
+            'produits.*.produit_id' => 'required|exists:produits,id',
+            'produits.*.quantite' => 'required|integer|min:1',
         ]);
 
-        // Ajouter la commande dans la base de données
-        Commande::create([
-            'client_id' => $this->client_id,
-            'produit_id' => $this->produit_id,
-            'quantite' => $this->quantite,
-            'montant' => $this->montant,
-        ]);
+        DB::beginTransaction();
 
-        // Afficher le message de succès
-        $this->showSuccessMessage = true;
+        try {
+            // Création de la commande
+            $commande = Commande::create([
+                'client_id' => $this->client_id,
+                'montant_total' => $this->montant_total,
+            ]);
 
-        // Réinitialiser uniquement les autres champs
-        $this->resetForm();
+            // Ajout des produits dans la commande
+            foreach ($this->produits as $p) {
+                $commande->produits()->attach($p['produit_id'], [
+                    'quantite' => $p['quantite'],
+                    'prix_unitaire' => $p['prix_unitaire'],
+                ]);
+            }
+
+            DB::commit();
+            $this->showSuccessMessage = true;
+
+            // Réinitialisation après soumission
+            $this->reset(['client_id', 'produits', 'montant_total']);
+            $this->produits = [['produit_id' => '', 'quantite' => 1, 'prix_unitaire' => 0.00]];  // Réinitialisation de la liste des produits
+
+            $this->dispatch("reloadCommandes");
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+        }
+        Flux::modal("create-rendezvous")->close();
     }
 
+    // Méthode qui rend la vue
+    public function render()
+    {
+        return view('livewire.commande-create', [
+            'clients' => $this->clients, 
+            'produits' => $this->produits, // Assurez-vous que cette ligne est présente
+            'produitList' => $this->produitList,
+        ]);
+    }
+    
     public function resetForm()
     {
-        // Réinitialiser les champs sans toucher à la quantité
         $this->client_id = '';
-        $this->produit_id = '';
-        $this->montant = 0;
-        $this->prix_produit = 0;
+        $this->produits = '';
+        $this->montant_total = '';
     }
+    
 }
