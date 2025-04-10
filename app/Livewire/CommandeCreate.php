@@ -107,7 +107,7 @@ public function calculateTotal()
         } catch (\Exception $e) {
             DB::rollBack();
         }
-        Flux::modal("create-rendezvous")->close();
+        Flux::modal("create-commande")->close();
     }
 
     // Méthode qui rend la vue

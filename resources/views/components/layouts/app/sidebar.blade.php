@@ -46,11 +46,12 @@
 
             <!-- Desktop User Menu -->
             <flux:dropdown position="bottom" align="start">
-                <flux:profile
-                    :name="auth()->user()->name"
-                    :initials="auth()->user()->initials()"
-                    icon-trailing="chevrons-up-down"
-                />
+            <flux:profile 
+    circle 
+    name="{{ auth()->user()->name }}" 
+    avatar="https://unavatar.io/x/{{ auth()->user()->email }}" 
+/>
+
 
                 <flux:menu class="w-[220px]">
                     <flux:menu.radio.group>

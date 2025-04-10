@@ -92,8 +92,16 @@
 
 
                     <td class="px-6 py-2">
-                    <flux:button variant="primary" size="sm" wire:click="edit({{ $client->id }})">Modifier</flux:button>
-                    <flux:button variant="danger" size="sm" wire:click="delete({{ $client->id }})">Supprimer</flux:button>
+                    <flux:dropdown>
+                        <flux:button icon:trailing="chevron-down" variant="primary">Options</flux:button>
+
+                        <flux:menu>
+                            <flux:menu.item icon="pencil-square" kbd="âS" wire:click="edit({{ $client->id }})">Modifier</flux:menu.item>
+                            <flux:menu.item icon="trash" variant="danger" kbd="ââ«" wire:click="delete({{ $client->id }})">Supprimer</flux:menu.item>
+                        </flux:menu>
+                    </flux:dropdown>
+                    <!--<flux:button variant="primary" size="sm" wire:click="edit({{ $client->id }})">Modifier</flux:button>
+                    <flux:button variant="danger" size="sm" wire:click="delete({{ $client->id }})">Supprimer</flux:button>-->
                     </td>
                 </tr>
 

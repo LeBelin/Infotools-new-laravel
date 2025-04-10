@@ -15,7 +15,7 @@
 
             <flux:input wire:model="nom" label="Nom" placeholder="Nom" />
             <flux:input wire:model="email" label="Mail" placeholder="Mail" />
-            <flux:input wire:model="telephone" label="Téléphone" placeholder="Téléphone" />
+            <flux:input wire:model="telephone" label="Téléphone" placeholder="Téléphone" mask="99 99 99 99 99" value="0716123456" />
             <flux:textarea wire:model="adresse" label="Adresse" placeholder="Adresse" />
 
 

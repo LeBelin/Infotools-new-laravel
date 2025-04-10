@@ -26,10 +26,8 @@
                 </div>
 
                 <!-- Sélecteur de la date -->
-                <div class="mb-4">
-                    <label for="date_rendez_vous" class="block text-gray-700">Date</label>
-                    <input type="date" id="date_rendez_vous" wire:model="date_rendez_vous" class="form-input mt-1 block w-full" placeholder="Sélectionner la date" />
-                </div>
+                <flux:input type="date" label="Date" wire:model="date_rendez_vous" max="2999-12-31" />
+
 
                 <!-- Sélecteur de l'heure -->
                 <div class="mb-4">
