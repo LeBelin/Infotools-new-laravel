@@ -64,8 +64,9 @@
                         <!-- Bouton supprimer -->
                         <div class="flex items-end">
                             <flux:button
+                            icon="trash" variant="danger"
                                 wire:click="removeProduit({{ $index }})"
-                            >🗑️</flux:button>
+                            ></flux:button>
                         </div>
 
                     </div>
