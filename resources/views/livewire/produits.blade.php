@@ -58,10 +58,9 @@
     </script>
 
     <!-- Tableau des produit -->
-    <div class="overflow-x-auto">
+    <div class="overflow-x-auto rounded-xl border border-gray-200 dark:border-gray-700">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400" style="background-color:#f0f7ff;">
                 <tr>
                     <th scope="col" class="px-6 py-3">ID</th>
                     <th scope="col" class="px-6 py-3">Nom</th>
@@ -69,44 +68,47 @@
                     <th scope="col" class="px-6 py-3">Prix</th>
                     <th scope="col" class="px-6 py-3">Stock</th>
                     <th scope="col" class="px-6 py-3">Date de création</th>
-                    <th scope="col" class="px-6 py-3">Date de mise a jours</th>
+                    <th scope="col" class="px-6 py-3">Date de mise à jour</th>
                     <th scope="col" class="px-6 py-3">Action</th>
                 </tr>
             </thead>
-
             <tbody>
                 @foreach($produits as $produit)
-                <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                    <td class="px-6 py-2 font-medium text-gray-900 dark:text-white"><flux:badge color="Zinc">{{ $produit->id }}</flux:badge></td>
-                    <td class="px-6 py-2 text-gray-600 dark:text-gray-300">{{ $produit->nom_produit }}</td>
-                    <td class="px-6 py-2 text-gray-600 dark:text-gray-300">{{ $produit->description }}</td>
-                    <td class="px-6 py-2 text-gray-600 dark:text-gray-300"><flux:badge color="lime">{{ $produit->prix }} €</flux:badge></td>
-                    <td class="px-6 py-2 text-gray-600 dark:text-gray-300"><flux:badge color="cyan">{{ $produit->stock }}</flux:badge></td>
-                    <td class="px-6 py-2 text-gray-600 dark:text-gray-300">
-                        {{ \Carbon\Carbon::parse($produit->created_at)->locale('fr')->isoFormat('D MMMM YYYY à HH:mm') }}
-                    </td>
-                    <td class="px-6 py-2 text-gray-600 dark:text-gray-300">
-                        {{ \Carbon\Carbon::parse($produit->updated_at)->locale('fr')->isoFormat('D MMMM YYYY à HH:mm') }}
-                    </td>
-
-                    
-                    <td class="px-6 py-2">
-                        <flux:dropdown>
-                           <flux:button icon:trailing="chevron-down" variant="primary">Options</flux:button>
-
-                            <flux:menu>
-                                <flux:menu.item icon="pencil-square" kbd="✏️" wire:click="edit({{ $produit->id }})">Modifier</flux:menu.item>
-                                <flux:menu.item icon="trash" variant="danger" kbd="🗑️" wire:click="delete({{ $produit->id }})">Supprimer</flux:menu.item>
-                            </flux:menu>
-                        </flux:dropdown>
-
-                        <!-- <flux:button variant="primary" size="sm" wire:click="edit({{ $produit->id }})">Modifier</flux:button>
-                        <flux:button variant="danger" size="sm" wire:click="delete({{ $produit->id }})">Supprimer</flux:button> -->
-                    </td>
-                </tr>
+                    <tr class="odd:bg-white even:bg-gray-50 border-b dark:border-gray-700 dark:bg-gray-800">
+                        <td class="px-6 py-2 font-medium text-gray-900 dark:text-white">
+                            <flux:badge color="Zinc">{{ $produit->id }}</flux:badge>
+                        </td>
+                        <td class="px-6 py-2 text-gray-600 dark:text-gray-300">
+                            {{ $produit->nom_produit }}
+                        </td>
+                        <td class="px-6 py-2 text-gray-600 dark:text-gray-300">
+                            {{ $produit->description }}
+                        </td>
+                        <td class="px-6 py-2 text-gray-600 dark:text-gray-300">
+                            <flux:badge color="lime">{{ $produit->prix }} €</flux:badge>
+                        </td>
+                        <td class="px-6 py-2 text-gray-600 dark:text-gray-300">
+                            <flux:badge color="cyan">{{ $produit->stock }}</flux:badge>
+                        </td>
+                        <td class="px-6 py-2 text-gray-600 dark:text-gray-300">
+                            {{ \Carbon\Carbon::parse($produit->created_at)->locale('fr')->isoFormat('D MMMM YYYY à HH:mm') }}
+                        </td>
+                        <td class="px-6 py-2 text-gray-600 dark:text-gray-300">
+                            {{ \Carbon\Carbon::parse($produit->updated_at)->locale('fr')->isoFormat('D MMMM YYYY à HH:mm') }}
+                        </td>
+                        <td class="px-6 py-2">
+                            <flux:dropdown>
+                            <flux:button icon:trailing="chevron-down" variant="primary">Options</flux:button>
+                                <flux:menu>
+                                    <flux:menu.item icon="pencil-square" kbd="✏️" wire:click="edit({{ $produit->id }})">Modifier</flux:menu.item>
+                                    <flux:menu.item icon="trash" variant="danger" kbd="🗑️" wire:click="delete({{ $produit->id }})">Supprimer</flux:menu.item>
+                                </flux:menu>
+                            </flux:dropdown>
+                        </td>
+                    </tr>
                 @endforeach
             </tbody>
-
         </table>
     </div>
+
 </div>

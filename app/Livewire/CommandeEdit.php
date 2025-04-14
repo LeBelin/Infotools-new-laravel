@@ -7,32 +7,32 @@ use App\Models\Commande;
 use App\Models\Client;
 use App\Models\Produit;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\On;
+use Flux;
 
 class CommandeEdit extends Component
 {
     public $commandeId;
+    public $clients;
     public $client_id;
     public $produits = [];
-    public $montant_total;
-    public $showSuccessMessage = false;
-    public $clients;
+    public $montant_total = 0.00;
     public $produitList;
-
-    protected $listeners = ['editCommande' => 'loadCommande'];
 
     public function mount()
     {
         $this->clients = Client::all();
         $this->produitList = Produit::all();
     }
-
+    
     public function loadCommande($id)
     {
         $commande = Commande::with('produits')->findOrFail($id);
         $this->commandeId = $commande->id;
         $this->client_id = $commande->client_id;
         $this->montant_total = $commande->montant_total;
-
+    
+        // Remplir les produits avec les données existantes de la commande
         $this->produits = $commande->produits->map(function ($p) {
             return [
                 'produit_id' => $p->id,
@@ -40,6 +40,14 @@ class CommandeEdit extends Component
                 'prix_unitaire' => $p->pivot->prix_unitaire,
             ];
         })->toArray();
+    }
+
+    #[On('editCommande')]
+    public function openEditModal($id)
+    {
+        // logger("Événement reçu dans CommandeEdit avec id = $id");
+        $this->loadCommande($id);
+        Flux::modal('edit-commande')->show();
     }
 
     public function updatedProduits()
@@ -59,6 +67,18 @@ class CommandeEdit extends Component
         $this->montant_total = collect($this->produits)->sum(function ($p) {
             return (float) $p['prix_unitaire'] * (int) $p['quantite'];
         });
+    }
+
+    public function addProduit()
+    {
+        $this->produits[] = ['produit_id' => '', 'quantite' => 1, 'prix_unitaire' => 0.00];
+    }
+
+    public function removeProduit($index)
+    {
+        unset($this->produits[$index]);
+        $this->produits = array_values($this->produits);
+        $this->calculateTotal();
     }
 
     public function update()
@@ -88,10 +108,11 @@ class CommandeEdit extends Component
             }
 
             DB::commit();
-            $this->showSuccessMessage = true;
-            $this->dispatchBrowserEvent('close-modal');
+            $this->dispatch("reloadCommandes");
 
-            $this->emit('commandeUpdated');
+            // Fermer le modal après la mise à jour
+            Flux::modal("edit-commande")->close();
+
         } catch (\Exception $e) {
             DB::rollBack();
             dd($e->getMessage());
@@ -100,6 +121,10 @@ class CommandeEdit extends Component
 
     public function render()
     {
-        return view('livewire.commande-edit');
+        return view('livewire.commande-edit', [
+            'clients' => $this->clients,
+            'produits' => $this->produits,
+            'produitList' => $this->produitList,
+        ]);
     }
 }

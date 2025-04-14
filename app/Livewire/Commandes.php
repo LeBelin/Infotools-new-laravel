@@ -32,8 +32,10 @@ class Commandes extends Component
 
     public function edit($id)
     {
-        $this->dispatch("editCommande", $id);
+        // logger("Événement editCommande envoyé avec l'id : " . $id);
+        $this->dispatch('editCommande', $id);
     }
+    
 
     public function delete($id)
     {

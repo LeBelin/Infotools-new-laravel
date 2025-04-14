@@ -83,28 +83,32 @@
 <!-- Les 3 derniers rendez-vous Section -->
 <div class="relative overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
     <section class="rendezvous-section p-6">
-        <h2 class="text-2xl font-semibold text-center mb-4">Les 3 derniers rendez-vous</h2>
+        <h2 class="text-2xl font-semibold text-center mb-6 text-gray-900 dark:text-white">Les 3 derniers rendez-vous</h2>
         <div class="overflow-x-auto">
-            <table class="min-w-full bg-white rounded-lg shadow-md" style="width: 100%;">
-                <thead>
-                    <tr class="text-left bg-gray-100">
-                        <th class="px-4 py-2 text-sm text-gray-600">Client</th>
-                        <th class="px-4 py-2 text-sm text-gray-600">Date</th>
-                        <th class="px-4 py-2 text-sm text-gray-600">Heure</th>
-                        <th class="px-4 py-2 text-sm text-gray-600">Description</th>
+            <table class="min-w-full bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 border border-neutral-300 dark:border-neutral-600">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th class="px-6 py-3 text-sm text-gray-600 dark:text-gray-300 rounded-tl-lg">Client</th>
+                        <th class="px-6 py-3 text-sm text-gray-600 dark:text-gray-300">Date</th>
+                        <th class="px-6 py-3 text-sm text-gray-600 dark:text-gray-300">Heure</th>
+                        <th class="px-6 py-3 text-sm text-gray-600 dark:text-gray-300 rounded-tr-lg">Description</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($rendezvous as $rdv)
-                        <tr class="border-t border-gray-200">
-                            <td class="px-4 py-2 text-sm text-gray-800">{{ $rdv->client->nom }}</td>
-                            <td class="px-4 py-2 text-sm text-gray-600">
-                                <flux:badge color="amber">{{ \Carbon\Carbon::parse($rdv->date_rendez_vous)->locale('fr')->isoFormat('D MMMM YYYY') }}</flux:badge>
+                        <tr class="border-t border-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200">
+                            <td class="px-6 py-3 text-sm text-gray-800 dark:text-white">{{ $rdv->client->nom }}</td>
+                            <td class="px-6 py-3 text-sm text-gray-600 dark:text-gray-300">
+                                <flux:badge color="amber">
+                                    {{ \Carbon\Carbon::parse($rdv->date_rendez_vous)->locale('fr')->isoFormat('D MMMM YYYY') }}
+                                </flux:badge>
                             </td>
-                            <td class="px-4 py-2 text-sm text-gray-600">
-                                <flux:badge color="green">{{ \Carbon\Carbon::parse($rdv->heure_rendez_vous)->locale('fr')->isoFormat('HH:mm') }}</flux:badge>
+                            <td class="px-6 py-3 text-sm text-gray-600 dark:text-gray-300">
+                                <flux:badge color="green">
+                                    {{ \Carbon\Carbon::parse($rdv->heure_rendez_vous)->locale('fr')->isoFormat('HH:mm') }}
+                                </flux:badge>
                             </td>
-                            <td class="px-4 py-2 text-sm text-gray-800">{{ $rdv->description }}</td>
+                            <td class="px-6 py-3 text-sm text-gray-800 dark:text-white">{{ $rdv->description }}</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -112,6 +116,9 @@
         </div>
     </section>
 </div>
+
+
+
 
     </div>
 </x-layouts.app>

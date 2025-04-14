@@ -61,10 +61,9 @@
     </script>
 
     <!-- Tableau des rendez vous -->
-    <div class="overflow-x-auto">
+    <div class="overflow-x-auto rounded-xl border border-gray-200 dark:border-gray-700">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400" style="background-color:#f0f7ff;">
                 <tr>
                     <th scope="col" class="px-6 py-3">ID</th>
                     <th scope="col" class="px-6 py-3">Clients concerné</th>
@@ -72,21 +71,32 @@
                     <th scope="col" class="px-6 py-3">Heure</th>
                     <th scope="col" class="px-6 py-3">Description</th>
                     <th scope="col" class="px-6 py-3">Date de création</th>
-                    <th scope="col" class="px-6 py-3">Date de mise a jours</th>
+                    <th scope="col" class="px-6 py-3">Date de mise à jour</th>
                     <th scope="col" class="px-6 py-3">Action</th>
                 </tr>
             </thead>
-
             <tbody>
                 @foreach($rendezvous as $rendezvous)
-                    <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                    <tr class="odd:bg-white even:bg-gray-50 border-b dark:border-gray-700 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200">
                         <td class="px-6 py-2 font-medium text-gray-900 dark:text-white">
                             <flux:badge color="Zinc">{{ $rendezvous->id }}</flux:badge>
                         </td>
-                        <td class="px-6 py-2 text-gray-600 dark:text-gray-300">{{ $rendezvous->client->nom }}</td>
-                        <td class="px-6 py-2 text-gray-600 dark:text-gray-300"><flux:badge color="amber">{{ \Carbon\Carbon::parse($rendezvous->date_rendez_vous)->locale('fr')->isoFormat('D MMMM YYYY') }}</flux:badge></td>
-                        <td class="px-6 py-2 text-gray-600 dark:text-gray-300"><flux:badge color="green">{{ \Carbon\Carbon::parse($rendezvous->heure_rendez_vous)->locale('fr')->isoFormat('HH:mm') }}</flux:badge></td>
-                        <td class="px-6 py-2 text-gray-600 dark:text-gray-300">{{ $rendezvous->description }}</td>
+                        <td class="px-6 py-2 text-gray-600 dark:text-gray-300">
+                            {{ $rendezvous->client->nom }}
+                        </td>
+                        <td class="px-6 py-2 text-gray-600 dark:text-gray-300">
+                            <flux:badge color="amber">
+                                {{ \Carbon\Carbon::parse($rendezvous->date_rendez_vous)->locale('fr')->isoFormat('D MMMM YYYY') }}
+                            </flux:badge>
+                        </td>
+                        <td class="px-6 py-2 text-gray-600 dark:text-gray-300">
+                            <flux:badge color="green">
+                                {{ \Carbon\Carbon::parse($rendezvous->heure_rendez_vous)->locale('fr')->isoFormat('HH:mm') }}
+                            </flux:badge>
+                        </td>
+                        <td class="px-6 py-2 text-gray-600 dark:text-gray-300">
+                            {{ $rendezvous->description }}
+                        </td>
                         <td class="px-6 py-2 text-gray-600 dark:text-gray-300">
                             {{ \Carbon\Carbon::parse($rendezvous->created_at)->locale('fr')->isoFormat('D MMMM YYYY à HH:mm') }}
                         </td>
@@ -96,21 +106,16 @@
                         <td class="px-6 py-2">
                             <flux:dropdown>
                                 <flux:button icon:trailing="chevron-down" variant="primary">Options</flux:button>
-
                                 <flux:menu>
-                                    <flux:menu.item icon="pencil-square" kbd="âS" wire:click="edit({{ $rendezvous->id }})">Modifier</flux:menu.item>
-                                    <flux:menu.item icon="trash" variant="danger" kbd="ââ«" wire:click="delete({{ $rendezvous->id }})">Supprimer</flux:menu.item>
+                                    <flux:menu.item icon="pencil-square" kbd="✏️" wire:click="edit({{ $rendezvous->id }})">Modifier</flux:menu.item>
+                                    <flux:menu.item icon="trash" variant="danger" kbd="🗑️" wire:click="delete({{ $rendezvous->id }})">Supprimer</flux:menu.item>
                                 </flux:menu>
                             </flux:dropdown>
-
-                            <!--<flux:button variant="primary" size="sm" wire:click="edit({{ $rendezvous->id }})">Modifier</flux:button>
-                            <flux:button variant="danger" size="sm" wire:click="delete({{ $rendezvous->id }})">Supprimer</flux:button>-->
                         </td>
                     </tr>
                 @endforeach
             </tbody>
-
-
         </table>
     </div>
+
 </div>

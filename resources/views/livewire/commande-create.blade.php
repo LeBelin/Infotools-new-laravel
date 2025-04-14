@@ -76,7 +76,7 @@
             </flux:fieldset>
 
 
-            <flux:button wire:click="addProduit">+ Ajouter un produit</flux:button>
+            <flux:button wire:click="addProduit" icon:leading="plus">Ajouter un produit</flux:button>
 
             <flux:fieldset>
                 <div class="space-y-6">

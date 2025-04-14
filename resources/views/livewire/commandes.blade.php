@@ -51,17 +51,16 @@
     </script>
 
     <!-- Tableau des commandes -->
-    <div class="overflow-x-auto">
+    <div class="overflow-x-auto rounded-xl border border-gray-200 dark:border-gray-700">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400" style="background-color:#f0f7ff;">
                 <tr>
                     <th class="px-6 py-3">ID</th>
                     <th class="px-6 py-3">Client</th>
                     <th class="px-6 py-3">Produits</th>
                     <th class="px-6 py-3">Montant total</th>
-                    <th class="px-6 py-3">Facture</th>
-                    <th class="px-6 py-3">Créée le</th>
-                    <th class="px-6 py-3">Modifiée le</th>
+                    <!-- <th class="px-6 py-3">Facture</th> -->
+                    <th class="px-6 py-3">Date</th>
                     <th class="px-6 py-3">Actions</th>
                 </tr>
             </thead>
@@ -75,47 +74,63 @@
                         <td class="px-6 py-2 text-gray-600 dark:text-gray-300">
                             {{ $commande->client->nom }}
                         </td>
-                        <td class="px-6 py-2 text-gray-600 dark:text-gray-300">
-                            <ul class="list-disc list-inside">
-                                @foreach($commande->produits as $produit)
-                                    <li>
-                                        {{ $produit->nom_produit }} — 
-                                        {{ $produit->pivot->quantite }} × {{ number_format($produit->pivot->prix_unitaire, 2) }} €
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </td>
+
+                        <td class="px-6 py-2 text-gray-700 dark:text-gray-300">
+    <div class="grid gap-2">
+        @foreach($commande->produits as $produit)
+            <div class="flex justify-between items-center bg-white dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 rounded-xl px-4 py-2 shadow-sm hover:shadow-md transition-shadow">
+                <div class="flex flex-col">
+                    <span class="font-semibold text-sm text-gray-800 dark:text-white">
+                        {{ $produit->nom_produit }}
+                    </span>
+                </div>
+                <div class="text-xs bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-100 px-3 py-1 rounded-full font-medium">
+                    {{ $produit->pivot->quantite }} × {{ number_format($produit->pivot->prix_unitaire, 2) }} €
+                </div>
+            </div>
+        @endforeach
+    </div>
+</td>
+
+
+
                         <td class="px-6 py-2 text-gray-600 dark:text-gray-300">
                             <flux:badge color="lime">{{ number_format($commande->montant_total, 2) }} €</flux:badge>
                         </td>
-                        <td class="px-6 py-2">
-                            <!-- Remplacer le wire:click par un lien vers la route de la facture -->
+
+                        <!-- <td class="px-6 py-2">
                             <a href="{{ route('commande.facture', $commande->id) }}">
                                 <flux:button size="sm" icon="arrow-down-tray">Facture</flux:button>
                             </a>
-                        </td>
+                        </td> -->
 
                         <td class="px-6 py-2 text-gray-600 dark:text-gray-300">
+                            Crée le :<br>
                             {{ \Carbon\Carbon::parse($commande->created_at)->locale('fr')->isoFormat('D MMMM YYYY à HH:mm') }}
-                        </td>
-                        <td class="px-6 py-2 text-gray-600 dark:text-gray-300">
-                            {{ \Carbon\Carbon::parse($commande->updated_at)->locale('fr')->isoFormat('D MMMM YYYY à HH:mm') }}
+                            <br><br>Modifiée le :<br>
+                                {{ \Carbon\Carbon::parse($commande->updated_at)->locale('fr')->isoFormat('D MMMM YYYY à HH:mm') }}
+
                         </td>
                         <td class="px-6 py-2">
                             <flux:dropdown>
                                 <flux:button icon:trailing="chevron-down" variant="primary">Options</flux:button>
 
                                 <flux:menu>
-                                    <flux:menu.item icon="pencil-square" kbd="âS" wire:click="edit({{ $commande->id }})">Modifier</flux:menu.item>
-                                    <flux:menu.item icon="trash" variant="danger" kbd="ââ«" wire:click="delete({{ $commande->id }})">Supprimer</flux:menu.item>
+                                    <a href="{{ route('commande.facture', $commande->id) }}" target="_blank">
+                                        <flux:menu.item icon="arrow-down-tray" kbd="€">Facture</flux:menu.item>
+                                    </a>
+                                    
+                                    <flux:menu.separator />
+
+                                    <flux:menu.item icon="pencil-square" kbd="✍️" wire:click="edit({{ $commande->id }})">Modifier</flux:menu.item>
+                                    <flux:menu.item icon="trash" variant="danger" kbd="❌" wire:click="delete({{ $commande->id }})">Supprimer</flux:menu.item>
                                 </flux:menu>
                             </flux:dropdown>
-                            <!--<flux:button variant="primary" size="sm" wire:click="edit({{ $commande->id }})">Modifier</flux:button>
-                            <flux:button variant="danger" size="sm" wire:click="delete({{ $commande->id }})">Supprimer</flux:button>-->
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
+
 </div>
