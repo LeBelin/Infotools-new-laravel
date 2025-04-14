@@ -15,31 +15,36 @@
 
             <form>
                 <!-- Sélecteur de client -->
-                <div class="mb-4">
-                    <label for="client_id" class="block text-gray-700">Client</label>
-                    <select id="client_id" wire:model="client_id" class="form-select mt-1 block w-full">
-                        <option value="">Sélectionner un client</option>
-                        @foreach($clients as $client)
-                            <option value="{{ $client->id }}">{{ $client->nom }}</option>
-                        @endforeach
-                    </select>
-                </div>
+                <flux:fieldset>
+                    <div class="space-y-6">
+                        <flux:select label="Client" wire:model="client_id">
+                            <option value="">Sélectionner un client</option>
+                            @foreach($clients as $client)
+                                <option value="{{ $client->id }}">{{ $client->nom }}</option>
+                            @endforeach
+                        </flux:select>
+                    </div>
+                </flux:fieldset>
 
                 <!-- Sélecteur de la date -->
                 <flux:input type="date" label="Date" wire:model="date_rendez_vous" max="2999-12-31" />
 
 
                 <!-- Sélecteur de l'heure -->
-                <div class="mb-4">
-                    <label for="heure_rendez_vous" class="block text-gray-700">Heure du rendez-vous</label>
-                    <input type="time" id="heure_rendez_vous" wire:model="heure_rendez_vous" class="form-input mt-1 block w-full" placeholder="Sélectionner l'heure" />
+                <div class="mb-6">
+                    <label for="heure_rendez_vous" class="block mb-2">Heure du rendez-vous</label>
+                    <input
+                        type="time"
+                        id="heure_rendez_vous"
+                        wire:model="heure_rendez_vous"
+                        class="form-input mt-1 block w-full py-2 px-4 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200 ease-in-out"
+                        placeholder="Sélectionner l'heure"
+                    />
                 </div>
 
+
                 <!-- Description -->
-                <div class="mb-4">
-                    <label for="description" class="block text-gray-700">Description</label>
-                    <textarea id="description" wire:model="description" class="form-textarea mt-1 block w-full" placeholder="Description"></textarea>
-                </div>
+                <flux:textarea wire:model="description" label="Description" placeholder="Description" />
             </form>
 
 
