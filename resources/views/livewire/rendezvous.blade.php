@@ -45,7 +45,7 @@
 
     <!-- Barre de recherche -->
     <div style="padding: 5px;"></div>
-    <flux:input kbd="⌘K" icon="magnifying-glass" placeholder="Search..." type="text" id="search"/>
+    <flux:input kbd="⌘K" icon="magnifying-glass" placeholder="Rechercher..." type="text" id="search"/>
     <div style="padding: 5px;"></div>
     
     <script>

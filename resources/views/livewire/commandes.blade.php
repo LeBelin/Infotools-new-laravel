@@ -35,7 +35,7 @@
 
     <!-- Barre de recherche -->
     <div style="padding: 5px;"></div>
-    <flux:input kbd="⌘K" icon="magnifying-glass" placeholder="Search..." type="text" id="search" />
+    <flux:input kbd="⌘K" icon="magnifying-glass" placeholder="Rechercher..." type="text" id="search" />
     <div style="padding: 5px;"></div>
 
     <script>
@@ -55,13 +55,45 @@
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400" style="background-color:#f0f7ff;">
                 <tr>
-                    <th class="px-6 py-3">ID</th>
-                    <th class="px-6 py-3">Client</th>
-                    <th class="px-6 py-3">Produits</th>
-                    <th class="px-6 py-3">Montant total</th>
+                <th class="px-6 py-3 text-left">
+                        <div class="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+                            <flux:icon name="hash" class="w-4 h-4" />
+                            <span>ID</span>
+                        </div>
+                    </th>
+                    <th class="px-6 py-3 text-left">
+                        <div class="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+                            <flux:icon name="user" class="w-4 h-4" />
+                            <span>Client</span>
+                        </div>
+                    </th>
+                    <th class="px-6 py-3 text-left">
+                        <div class="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+                            <flux:icon name="shopping-basket" class="w-4 h-4" />
+                            <span>Produits</span>
+                        </div>
+                    </th>
+                    <th class="px-6 py-3 text-left">
+                        <div class="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+                            <flux:icon name="euro" class="w-4 h-4" />
+                            <span>Montant total</span>
+                        </div>
+                    </th>
+                
                     <!-- <th class="px-6 py-3">Facture</th> -->
-                    <th class="px-6 py-3">Date</th>
-                    <th class="px-6 py-3">Actions</th>
+                    <th class="px-6 py-3 text-left">
+                        <div class="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+                            <flux:icon name="calendar-search" class="w-4 h-4" />
+                            <span>Date</span>
+                        </div>
+                    </th>
+
+                    <th class="px-6 py-3 text-left">
+                        <div class="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+                        
+                            <span></span>
+                        </div>
+                    </th>
                 </tr>
             </thead>
 
@@ -85,7 +117,7 @@
                     </span>
                 </div>
                 <div class="text-xs bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-100 px-3 py-1 rounded-full font-medium">
-                    {{ $produit->pivot->quantite }} × {{ number_format($produit->pivot->prix_unitaire, 2) }} €
+                    {{ $produit->pivot->quantite }} × {{ number_format($produit->pivot->prix_unitaire, 2) }} € 
                 </div>
             </div>
         @endforeach
@@ -95,7 +127,7 @@
 
 
                         <td class="px-6 py-2 text-gray-600 dark:text-gray-300">
-                            <flux:badge color="lime">{{ number_format($commande->montant_total, 2) }} €</flux:badge>
+                            <flux:badge color="lime">{{ number_format($commande->montant_total, 2) }} <flux:icon.euro variant="micro"/></flux:badge>
                         </td>
 
                         <!-- <td class="px-6 py-2">
@@ -113,7 +145,7 @@
                         </td>
                         <td class="px-6 py-2">
                             <flux:dropdown>
-                                <flux:button icon:trailing="chevron-down" variant="primary">Options</flux:button>
+                                <flux:button icon="ellipsis" variant="primary"></flux:button>
 
                                 <flux:menu>
                                     <a href="{{ route('commande.facture', $commande->id) }}" target="_blank">

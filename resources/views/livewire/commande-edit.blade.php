@@ -54,6 +54,7 @@
                                 type="text"
                                 label="Prix"
                                 wire:model="produits.{{ $index }}.prix_unitaire"
+                                icon:trailing="euro"
                                 class="w-full bg-gray-100"
                             />
                         </div>
@@ -87,6 +88,7 @@
                             type="text"
                             disabled
                             wire:model="montant_total"
+                            icon:trailing="euro"
                         />
                     </div>
                 </div>
