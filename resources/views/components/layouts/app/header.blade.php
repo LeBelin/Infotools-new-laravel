@@ -12,10 +12,29 @@
             </a>
 
             <flux:navbar class="-mb-px max-lg:hidden">
-                <flux:navbar.item icon="layout-grid" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
-                    {{ __('Dashboard') }}
-                </flux:navbar.item>
-            </flux:navbar>
+    <flux:navbar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
+        {{ __('Tableau de bord') }}
+    </flux:navbar.item>
+    <flux:navbar.item icon="users" :href="route('prospects')" :current="request()->routeIs('prospects')" wire:navigate>
+        {{ __('Prospects') }}
+    </flux:navbar.item>
+    <flux:navbar.item icon="briefcase" :href="route('commerciaux')" :current="request()->routeIs('commerciaux')" wire:navigate>
+        {{ __('Commerciaux') }}
+    </flux:navbar.item>
+    <flux:navbar.item icon="user" :href="route('clients')" :current="request()->routeIs('clients')" wire:navigate>
+        {{ __('Clients') }}
+    </flux:navbar.item>
+    <flux:navbar.item icon="shopping-bag" :href="route('produits')" :current="request()->routeIs('produits')" wire:navigate>
+        {{ __('Produits') }}
+    </flux:navbar.item>
+    <flux:navbar.item icon="shopping-cart" :href="route('commandes')" :current="request()->routeIs('commandes')" wire:navigate>
+        {{ __('Commandes') }}
+    </flux:navbar.item>
+    <flux:navbar.item icon="calendar" :href="route('rendezvous')" :current="request()->routeIs('rendezvous')" wire:navigate>
+        {{ __('Rendez vous') }}
+    </flux:navbar.item>
+</flux:navbar>
+
 
             <flux:spacer />
 
