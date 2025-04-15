@@ -18,7 +18,7 @@ class Commerciaux extends Component
     // Affichage des commerciaux
     public function mount()
     {
-        $this->commerciaux = Commercial::all();
+        $this->commerciaux = Commercial::orderBy('created_at', 'desc')->get();
     }
 
     public function render()
@@ -30,7 +30,7 @@ class Commerciaux extends Component
     #[On('reloadCommerciaux')]
     public function reloadCommerciaux()
     {
-        $this->commerciaux = Commercial::all();
+        $this->commerciaux = Commercial::orderBy('created_at', 'desc')->get();
     }
 
     public function edit($id)

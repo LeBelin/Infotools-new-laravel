@@ -110,7 +110,7 @@
                         <td class="px-6 py-2 text-gray-700 dark:text-gray-300">
                         <div class="grid gap-2">
                             @foreach($commande->produits as $produit)
-                                <div class="flex justify-between items-center px-4 py-1">
+                                <div class="flex justify-between items-center px-4 py-1 border border-neutral-200 dark:border-neutral-700 hover:bg-zinc-50 dark:hover:bg-zinc-700 p-4 rounded-lg transition-all duration-300">
                                     <div class="flex flex-col">
                                         <span class="font-semibold text-sm text-gray-800 dark:text-white flex items-center gap-1">
                                             <flux:icon name="shopping-bag" class="w-4 h-4" />
@@ -121,7 +121,7 @@
                                     <div class="text-xs bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-100 px-3 py-1 rounded-full font-medium">
                                         {{ number_format($produit->pivot->prix_unitaire, 2) }} € 
                                     </div>
-                                </div><flux:separator />
+                                </div>
                             @endforeach
                         </div>
                     </td>
@@ -138,7 +138,7 @@
                             </a>
                         </td> -->
 
-                        <td class="px-6 py-2 text-gray-600 dark:text-gray-300">
+                        <td class="px-6 py-2 text-gray-600 dark:text-gray-300 ">
                             Crée le :<br>
                             {{ \Carbon\Carbon::parse($commande->created_at)->locale('fr')->isoFormat('D MMMM YYYY à HH:mm') }}
                             <flux:separator />Modifiée le :<br>

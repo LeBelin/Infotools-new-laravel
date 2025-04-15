@@ -18,7 +18,8 @@ class Clients extends Component
     // Affichage des clients
     public function mount()
     {
-        $this->clients = Client::all();
+        $this->clients = Client::orderBy('created_at', 'desc')->get();
+        
     }
 
     public function render()
@@ -30,7 +31,7 @@ class Clients extends Component
     #[On('reloadClients')]
     public function reloadClients()
     {
-        $this->clients = Client::all();
+        $this->clients = Client::orderBy('created_at', 'desc')->get();
     }
 
     public function edit($id)

@@ -16,7 +16,9 @@ class Commandes extends Component
 
     public function mount()
     {
-        $this->commandes = Commande::with(['client', 'produits'])->get();
+        $this->commandes = Commande::with(['client', 'produits'])
+        ->orderBy('created_at', 'desc')
+        ->get();
     }
 
     public function render()
@@ -27,7 +29,9 @@ class Commandes extends Component
     #[On('reloadCommandes')]
     public function reloadCommandes()
     {
-        $this->commandes = Commande::with(['client', 'produits'])->get();
+        $this->commandes = Commande::with(['client', 'produits'])
+        ->orderBy('created_at', 'desc')
+        ->get();
     }
 
     public function edit($id)

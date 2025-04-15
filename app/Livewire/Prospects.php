@@ -18,7 +18,7 @@ class Prospects extends Component
     // Affichage des prospects
     public function mount()
     {
-        $this->prospects = Prospect::all();
+        $this->prospects = Prospect::orderBy('created_at', 'desc')->get();
     }
 
     public function render()
@@ -30,7 +30,7 @@ class Prospects extends Component
     #[On('reloadProspects')]
     public function reloadProspects()
     {
-        $this->prospects = Prospect::all();
+        $this->prospects = Prospect::orderBy('created_at', 'desc')->get();
     }
 
     public function edit($id)

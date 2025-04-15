@@ -17,8 +17,7 @@ class Rendezvouss extends Component
 
     public function mount()
     {
-        // Vérifie que la variable $rendezvous est bien chargée
-        $this->rendezvous = Rendezvous::all();  // Charge tous les rendez-vous
+        $this->rendezvous = Rendezvous::orderBy('created_at', 'desc')->get();
     }
 
     public function render()
@@ -30,7 +29,7 @@ class Rendezvouss extends Component
     #[On('reloadRendezvous')]
     public function reloadRendezvous()
     {
-        $this->rendezvous = Rendezvous::all();
+        $this->rendezvous = Rendezvous::orderBy('created_at', 'desc')->get();
     }
 
     public function edit($id)

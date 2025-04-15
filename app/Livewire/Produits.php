@@ -18,7 +18,7 @@ class Produits extends Component
     // Affichage des clients
     public function mount()
     {
-        $this->produits = Produit::all();
+        $this->produits = Produit::orderBy('created_at', 'desc')->get();
     }
 
     public function render()
@@ -30,7 +30,7 @@ class Produits extends Component
     #[On('reloadProduits')]
     public function reloadClients()
     {
-        $this->produits = Produit::all();
+        $this->produits = Produit::orderBy('created_at', 'desc')->get();
     }
 
     public function edit($id)
