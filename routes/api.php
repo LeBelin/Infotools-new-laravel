@@ -2,10 +2,31 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\ApiController;
+use App\Http\Controllers\CommerciauxApiController;
+use App\Http\Controllers\RendezVousApiController;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+Route::post('login', [ApiController::class, 'login']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('rendezvous', RendezVousApiController::class);
+});
 
-// API routes for rendez vous
-//Route::get('/rendez-vous', 'App\Http\Controllers\RendezVousController@index');
+//Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('commerciaux', CommerciauxApiController::class);
+//});
+
+
+// Route::get('/user', function (Request $request) {
+//     return $request->user();
+// })->middleware('auth:sanctum');
+
+
+
+//Route::post('register', [ApiController::class, 'register']);
+
+
+
+
+//Route::middleware(['auth:sanctum' => ["auth:sanctum"] ], function() {
+//    Route::get('rendezvous', [ApiController::class, 'rendezvous']);
+//});

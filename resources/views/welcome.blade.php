@@ -12,6 +12,10 @@
 
         <!-- Lien vers ton fichier CSS -->
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+@livewireStyles
+@livewireScripts
+
     </head>
 <body>
     <!-- Header avec navigation -->
@@ -31,6 +35,12 @@
     </header>
 
     <!-- Section Présentation -->
+    <section class="presentation">
+        <h1 class="title">Bienvenue sur <flux:badge color="red" size="lg">infotools</flux:badge></h1>
+        <p class="description">Notre entreprises infotools vend des logiciels ainsi que la mise en place.</p>
+    </section>
+
+    <!-- Section boutique -->
     <section class="presentation">
         <h1 class="title">Bienvenue sur notre boutique infotools</h1>
         <p class="description">Découvrez nos derniers produits.</p>
