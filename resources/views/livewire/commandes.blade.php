@@ -110,18 +110,18 @@
                         <td class="px-6 py-2 text-gray-700 dark:text-gray-300">
                         <div class="grid gap-2">
                             @foreach($commande->produits as $produit)
-                                <div class="flex justify-between items-center bg-white dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 rounded-xl px-4 py-2 shadow-sm hover:shadow-md transition-shadow">
+                                <div class="flex justify-between items-center px-4 py-1">
                                     <div class="flex flex-col">
                                         <span class="font-semibold text-sm text-gray-800 dark:text-white flex items-center gap-1">
-                                            <flux:icon name="chevron-right" class="w-4 h-4" />
-                                            {{ $produit->nom_produit }}
+                                            <flux:icon name="shopping-bag" class="w-4 h-4" />
+                                            {{ $produit->pivot->quantite }} {{ $produit->nom_produit }}
                                         </span>
                                     </div>
 
                                     <div class="text-xs bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-100 px-3 py-1 rounded-full font-medium">
-                                        {{ $produit->pivot->quantite }} × {{ number_format($produit->pivot->prix_unitaire, 2) }} € 
+                                        {{ number_format($produit->pivot->prix_unitaire, 2) }} € 
                                     </div>
-                                </div>
+                                </div><flux:separator />
                             @endforeach
                         </div>
                     </td>
@@ -141,9 +141,9 @@
                         <td class="px-6 py-2 text-gray-600 dark:text-gray-300">
                             Crée le :<br>
                             {{ \Carbon\Carbon::parse($commande->created_at)->locale('fr')->isoFormat('D MMMM YYYY à HH:mm') }}
-                            <br><br>Modifiée le :<br>
+                            <flux:separator />Modifiée le :<br>
                                 {{ \Carbon\Carbon::parse($commande->updated_at)->locale('fr')->isoFormat('D MMMM YYYY à HH:mm') }}
-
+                                <flux:separator />
                         </td>
                         <td class="px-6 py-2">
                             <flux:dropdown>

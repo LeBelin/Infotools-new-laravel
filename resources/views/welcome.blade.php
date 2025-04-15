@@ -13,58 +13,74 @@
         <!-- Lien vers ton fichier CSS -->
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-@livewireStyles
-@livewireScripts
+        @livewireStyles
+        @livewireScripts
 
     </head>
-<body>
-    <!-- Header avec navigation -->
-    <header class="header">
-        @if (Route::has('login'))
-            <nav class="nav">
-                @auth
-                    <a href="{{ url('/dashboard') }}" class="nav-link">Dashboard</a>
-                @else
-                    <a href="{{ route('login') }}" class="nav-link">Se connecter</a>
-                    @if (Route::has('register'))
-                        <a href="{{ route('register') }}" class="nav-link">S'inscrire</a>
-                    @endif
-                @endauth
-            </nav>
-        @endif
-    </header>
+    
+    <body>
+        <!-- Header -->
+        <header class="header">
+            <div class="container flex justify-between items-center py-4">
+            <a href="{{ url('/') }}">
+                <img src="{{ asset('logo.png') }}" alt="Logo Infotools" class="h-20 w-auto">
+            </a>
+                @if (Route::has('login'))
+                    <nav class="nav space-x-4">
+                        @auth
+                        
+                            <a href="{{ url('/dashboard') }}" class="nav-link">Dashboard</a>
+                        @else
+                            <a href="{{ route('login') }}" class="nav-link">Se connecter</a>
+                            @if (Route::has('register'))
+                                <a href="{{ route('register') }}" class="nav-link">S'inscrire</a>
+                            @endif
+                        @endauth
+                    </nav>
+                @endif
+            </div>
+        </header>
 
-    <!-- Section Présentation -->
-    <section class="presentation">
-        <h1 class="title">Bienvenue sur <flux:badge color="red" size="lg">infotools</flux:badge></h1>
-        <p class="description">Notre entreprises infotools vend des logiciels ainsi que la mise en place.</p>
-    </section>
+        <flux:separator /> <br>
 
-    <!-- Section boutique -->
-    <section class="presentation">
-        <h1 class="title">Bienvenue sur notre boutique infotools</h1>
-        <p class="description">Découvrez nos derniers produits.</p>
-    </section>
+        <!-- Section Présentation -->
+        <section class="products">
+            <h1 class="title">Bienvenue sur infotools</h1>
+            <p class="description">Infotools est une entreprise spécialisée dans le développement de logiciels sur mesure et la mise en place d'infrastructures informatiques adaptées.<br>
+                Grâce à une équipe passionnée et expérimentée, nous accompagnons les entreprises dans leur transformation numérique en leur proposant des solutions innovantes, performantes et sécurisées.<br>
+                Notre objectif : simplifier la gestion de votre activité grâce à des outils efficaces, tout en assurant un suivi personnalisé à chaque étape de votre projet.</p>
+            <div style="padding: 5px;"></div>
+            <flux:separator />
+        </section>
 
-    <!-- Section Derniers Produits -->
-    <section class="products">
-        <h2 class="products-title">Derniers Produits</h2>
-        <div class="products-list">
-            @foreach ($products as $product)
-                <div class="product-card">
-                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->nom_produit }}" class="product-image">
-                    <h3 class="product-name">{{ $product->nom_produit }}</h3>
-                    <p class="product-description">{{ $product->description }}</p>
-                    <span class="product-price">{{ $product->prix }} €</span>
-                    <a href="#" class="product-link">Voir le produit</a>
-                </div>
-            @endforeach
-        </div>
-    </section>
+        <div style="padding: 15px;"></div>
 
-    <footer>
-        <p class="footer-text">© 2025 Infotools. Tous droits réservés.</p>
-    </footer>
+        <!-- Section Derniers Produits -->
+        <section class="products">
+        <flux:badge color="lime" size="xs">Nouveau</flux:badge>
+            <h1 class="title">Nos produits</h1>
+            <p class="description">Découvrez nos derniers produits actuels.</p>
+            
+            <div style="padding: 5px;"></div>
+            <flux:separator />
+            <div style="padding: 10px;"></div>
 
-</body>
+            <div class="products-list">
+                @foreach ($products as $product)
+                    <div class="product-card">
+                        <!-- <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->nom_produit }}" class="product-image"> -->
+                        <h3 class="product-name">{{ $product->nom_produit }}</h3>
+                        <p class="product-description">{{ $product->description }}</p>
+                        <span class="product-price">{{ $product->prix }} €</span>
+                        <!-- <a href="#" class="product-link">Voir le produit</a> -->
+                    </div>
+                @endforeach
+            </div>
+        </section>
+
+        <footer class="presentation">
+            <p class="footer-text">© 2025 Infotools. Tous droits réservés.</p>
+        </footer>
+
+    </body>
 </html>
