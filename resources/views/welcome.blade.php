@@ -28,8 +28,7 @@
                 @if (Route::has('login'))
                     <nav class="nav space-x-4">
                         @auth
-                        
-                            <a href="{{ url('/dashboard') }}" class="nav-link">Dashboard</a>
+                            <a href="{{ url('/dashboard') }}" class="nav-link">Tableau de bord</a>
                         @else
                             <a href="{{ route('login') }}" class="nav-link">Se connecter</a>
                             @if (Route::has('register'))
@@ -70,6 +69,7 @@
                     <div class="product-card">
                         <!-- <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->nom_produit }}" class="product-image"> -->
                         <h3 class="product-name">{{ $product->nom_produit }}</h3>
+                        <flux:separator />
                         <p class="product-description">{{ $product->description }}</p>
                         <span class="product-price">{{ $product->prix }} €</span>
                         <!-- <a href="#" class="product-link">Voir le produit</a> -->
