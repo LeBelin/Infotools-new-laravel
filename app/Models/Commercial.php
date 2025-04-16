@@ -15,4 +15,9 @@ class Commercial extends Model
     {
         return $this->hasMany(Commande::class);
     }
+
+    public function rendezvous()
+    {
+        return $this->hasMany(Rendezvous::class);
+    }
 }

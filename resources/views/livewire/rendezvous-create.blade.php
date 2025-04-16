@@ -26,6 +26,18 @@
                     </div>
                 </flux:fieldset>
 
+                <!-- Sélecteur de commercial -->
+                <flux:fieldset>
+                    <div class="space-y-6">
+                        <flux:select label="Commercial" wire:model="commercial_id">
+                            <option value="">Sélectionner un commercial</option>
+                            @foreach($commerciaux as $commercial)
+                                <option value="{{ $commercial->id }}">{{ $commercial->nom }}</option>
+                            @endforeach
+                        </flux:select>
+                    </div>
+                </flux:fieldset>
+
                 <!-- Sélecteur de la date -->
                 <flux:input type="date" label="Date" wire:model="date_rendez_vous" max="2999-12-31" />
 
@@ -53,7 +65,7 @@
             <div class="flex">
                 <flux:spacer />
 
-                <flux:button type="submit" variant="primary" wire:click="submit">Ajouter le client</flux:button>
+                <flux:button type="submit" variant="primary" wire:click="submit">Ajouter le rendez vous</flux:button>
             </div>
         </div>
     </flux:modal>

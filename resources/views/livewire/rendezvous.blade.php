@@ -56,6 +56,10 @@
                                     <td class="px-4 py-2">{{ $showRendezvous->client->nom }}</td>
                                 </tr>
                                 <tr>
+                                    <th class="px-4 py-2 font-medium text-gray-600 w-1/3">Commercial concerné</th>
+                                    <td class="px-4 py-2">{{ $showRendezvous->commercial->nom }}</td>
+                                </tr>
+                                <tr>
                                     <th class="px-4 py-2 font-medium text-gray-600">Description</th>
                                     <td class="px-4 py-2">{{ $showRendezvous->description }}</td>
                                 </tr>
@@ -115,6 +119,7 @@
                 <tr>
                     <th scope="col" class="px-6 py-3">ID</th>
                     <th scope="col" class="px-6 py-3">Clients concerné</th>
+                    <th scope="col" class="px-6 py-3">Commercial concerné</th>
                     <th scope="col" class="px-6 py-3">Date</th>
                     <th scope="col" class="px-6 py-3">Heure</th>
                     <th scope="col" class="px-6 py-3">Description</th>
@@ -131,6 +136,9 @@
                         </td>
                         <td class="px-6 py-2 text-gray-600 dark:text-gray-300">
                             {{ $rendezvous->client->nom }}
+                        </td>
+                        <td class="px-6 py-2 text-gray-600 dark:text-gray-300">
+                            {{ $rendezvous->commercial->nom }}
                         </td>
                         <td class="px-6 py-2 text-gray-600 dark:text-gray-300">
                             <flux:badge color="amber">

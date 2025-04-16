@@ -6,12 +6,15 @@ use Livewire\Component;
 use App\Models\Rendezvous;
 use App\Models\Client;
 use Livewire\Attributes\On;
+use App\Models\Commercial;
 use Flux;
 
 class RendezvousEdit extends Component
 {
     public $clients;
     public $client_id;
+    public $commerciaux;
+    public $commercial_id;
     public $date_rendez_vous;
     public $heure_rendez_vous;
     public $description;
@@ -20,8 +23,9 @@ class RendezvousEdit extends Component
 
     public function mount()
     {
-        // Charge les clients
+        // Charge les clients et commerciaux au démarrage du composant
         $this->clients = Client::all();
+        $this->commerciaux = Commercial::all(); 
     }
 
     public function render()
@@ -36,6 +40,7 @@ class RendezvousEdit extends Component
 
         $this->rendezvousId = $id;
         $this->client_id = $rendezvous->client_id;
+        $this->commercial_id = $rendezvous->commercial_id;
         $this->date_rendez_vous = $rendezvous->date_rendez_vous;
         $this->heure_rendez_vous = $rendezvous->heure_rendez_vous;
         $this->description = $rendezvous->description;
@@ -47,6 +52,7 @@ class RendezvousEdit extends Component
     {
         $this->validate([
             'client_id' => 'required',
+            'commercial_id' => 'required',
             'date_rendez_vous' => 'required',
             'heure_rendez_vous' => 'required',
             'description' => 'required',
@@ -54,6 +60,7 @@ class RendezvousEdit extends Component
 
         $rendezvous = Rendezvous::find($this->rendezvousId);
         $rendezvous->client_id = $this->client_id;
+        $rendezvous->commercial_id = $this->commercial_id;
         $rendezvous->date_rendez_vous = $this->date_rendez_vous;
         $rendezvous->heure_rendez_vous = $this->heure_rendez_vous;
         $rendezvous->description = $this->description;
