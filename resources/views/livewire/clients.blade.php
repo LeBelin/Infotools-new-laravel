@@ -16,6 +16,7 @@
         <div style="padding: 5px;"></div>
     @endif
 
+    <!-- Modal supression du client -->
     <flux:modal name="delete-client" class="min-w-[22rem]">
         <div class="space-y-6">
         @if($clientId)
@@ -39,6 +40,55 @@
             </div>
         </div>
     </flux:modal>
+
+    <!-- Affiche les informations du client demandées -->
+    <flux:modal name="show-client" class="min-w-[22rem]">
+        <div class="space-y-6">
+            @if($showClient)
+                <div class="space-y-4">
+                    <flux:heading size="lg">Informations du client</flux:heading>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left">
+                            <tbody class="divide-y divide-gray-100">
+                                <tr>
+                                    <th class="px-4 py-2 font-medium text-gray-600 w-1/3">Nom</th>
+                                    <td class="px-4 py-2">{{ $showClient->nom }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="px-4 py-2 font-medium text-gray-600">Email</th>
+                                    <td class="px-4 py-2">{{ $showClient->email }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="px-4 py-2 font-medium text-gray-600">Téléphone</th>
+                                    <td class="px-4 py-2">{{ $showClient->telephone }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="px-4 py-2 font-medium text-gray-600">Adresse</th>
+                                    <td class="px-4 py-2">{{ $showClient->adresse }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="px-4 py-2 font-medium text-gray-600">Créé le</th>
+                                    <td class="px-4 py-2">{{ $showClient->created_at->format('d/m/Y à H:i') }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            @else
+                <p class="text-center text-gray-500">Client introuvable.</p>
+            @endif
+
+            <div class="flex justify-end">
+                <flux:modal.close>
+                    <flux:button variant="ghost">Fermer</flux:button>
+                </flux:modal.close>
+            </div>
+        </div>
+    </flux:modal>
+
+
+
 
 
 
@@ -96,6 +146,7 @@
                         <flux:dropdown>
                             <flux:button icon:trailing="chevron-down" variant="primary">Options</flux:button>
                             <flux:menu>
+                                <flux:menu.item icon="search" kbd="👀" wire:click="show({{ $client->id }})">Voir</flux:menu.item>
                                 <flux:menu.item icon="pencil-square" kbd="✏️" wire:click="edit({{ $client->id }})">Modifier</flux:menu.item>
                                 <flux:menu.item icon="trash" variant="danger" kbd="🗑️" wire:click="delete({{ $client->id }})">Supprimer</flux:menu.item>
                             </flux:menu>

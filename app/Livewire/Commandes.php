@@ -12,6 +12,7 @@ class Commandes extends Component
     public $commandes;
     public $commandeId;
     public $commandeName;
+    public $showCommande;
     public $showSuccessMessage = false;
 
     public function mount()
@@ -24,6 +25,15 @@ class Commandes extends Component
     public function render()
     {
         return view('livewire.commandes');
+    }
+
+    public function show($id)
+    {
+        $commande = Commande::find($id);
+        if ($commande) {
+            $this->showCommande = $commande;
+            Flux::modal('show-commande')->show();
+        }
     }
 
     #[On('reloadCommandes')]

@@ -12,7 +12,6 @@ class RendezVousApiController extends Controller
      */
     public function index()
     {
-
         $rendezvous = RendezVous::all();
         return response()->json([
             "success" => true,

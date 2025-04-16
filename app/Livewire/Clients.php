@@ -13,6 +13,7 @@ class Clients extends Component
     public $clients;
     public $clientId;
     public $clientName;
+    public $showClient;
     public $showSuccessMessage = false;
     
     // Affichage des clients
@@ -27,6 +28,15 @@ class Clients extends Component
         return view('livewire.clients');
     }
 
+    public function show($id)
+    {
+        $client = Client::find($id);
+        if ($client) {
+            $this->showClient = $client;
+            Flux::modal('show-client')->show();
+        }
+    }
+    
     //refresh a l'ajout d'un client
     #[On('reloadClients')]
     public function reloadClients()
