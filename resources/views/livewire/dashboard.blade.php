@@ -33,10 +33,19 @@
                             <span class="font-semibold text-lg">Rendez vous avec {{ $rdv->client->nom }}</span>
                             <flux:icon name="calendar-search" class="ml-auto text-zinc-400" variant="micro" />
                         </flux:heading>
-                        <flux:separator />
                         <flux:text class="mt-2 text-gray-600 dark:text-zinc-300">
                             <strong>Le {{ \Carbon\Carbon::parse($rdv->date_rendez_vous)->locale('fr')->isoFormat('D MMMM YYYY') }} à
                              {{ \Carbon\Carbon::parse($rdv->heure_rendez_vous)->locale('fr')->isoFormat('HH:mm') }}</strong> 
+                        </flux:text>
+
+                        <flux:separator />
+
+                        <flux:text class="mt-2 text-gray-600 dark:text-zinc-300">
+                            {{ $rdv->description }}
+                        </flux:text>
+
+                        <flux:text class="mt-2 text-gray-600 dark:text-zinc-300">
+                            Commercial concernée : {{ $rdv->commercial->nom }}
                         </flux:text>
                     </div>
                 @endforeach
