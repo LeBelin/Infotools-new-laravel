@@ -39,8 +39,14 @@ class CommandeController extends Controller
         $pdf->SetFont('helvetica', '', 12); // Police plus petite pour les infos
         $pdf->Cell(100, 10, "Client: {$commande->client->nom}");
         $pdf->Ln(10);
-        $pdf->Cell(100, 10, "Date: {$commande->created_at->format('d/m/Y')}");
+        $pdf->Cell(100, 10, "Mail: {$commande->client->email}");
         $pdf->Ln(10);
+        $pdf->Cell(100, 10, "Telephone: {$commande->client->telephone}");
+        $pdf->Ln(10);
+        $pdf->Cell(100, 10, "Adresse: {$commande->client->adresse}");
+        $pdf->Ln(20);
+        $pdf->Cell(100, 10, "Date de la commande: {$commande->created_at->format('d/m/Y')}");
+        $pdf->Ln(0);
 
         // Ligne de séparation
         $pdf->Line(10, $pdf->GetY(), 200, $pdf->GetY());

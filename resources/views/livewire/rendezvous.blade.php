@@ -21,7 +21,7 @@
         <div class="space-y-6">
             @if(isset($rendezvousId))
                 <div>
-                    <flux:heading size="lg">Supprimer le rendez-vous : {{ $rendezvousName }} ?</flux:heading>
+                    <flux:heading size="lg">Supprimer le rendez-vous : {{ $rendezvousId }} ?</flux:heading>
 
                     <flux:subheading>
                         <p>Si vous le supprimez, vous ne pourrez pas revenir en arrière.</p>
@@ -41,7 +41,55 @@
         </div>
     </flux:modal>
 
+    <!-- Affiche les informations du rendez vous demandées -->
+    <flux:modal name="show-rendezvous" class="min-w-[22rem]">
+        <div class="space-y-6">
+            @if($showRendezvous)
+                <div class="space-y-4">
+                    <flux:heading size="lg">Informations du rendez vous</flux:heading>
 
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left">
+                            <tbody class="divide-y divide-gray-100">
+                                <tr>
+                                    <th class="px-4 py-2 font-medium text-gray-600 w-1/3">Clients concerné</th>
+                                    <td class="px-4 py-2">{{ $showRendezvous->client->nom }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="px-4 py-2 font-medium text-gray-600">Description</th>
+                                    <td class="px-4 py-2">{{ $showRendezvous->description }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="px-4 py-2 font-medium text-gray-600">Date du rendez vous</th>
+                                    <td class="px-4 py-2"><flux:badge color="amber">{{ \Carbon\Carbon::parse($showRendezvous->date_rendez_vous)->locale('fr')->isoFormat('D MMMM YYYY') }}</flux:badge></td>
+                                </tr>
+                                <tr>
+                                    <th class="px-4 py-2 font-medium text-gray-600">Heure du rendez vous</th>
+                                    <td class="px-4 py-2"><flux:badge color="green">{{ \Carbon\Carbon::parse($showRendezvous->heure_rendez_vous)->locale('fr')->isoFormat('HH:mm') }}</flux:badge></td>
+                                </tr>
+                                <tr>
+                                    <th class="px-4 py-2 font-medium text-gray-600">Créé le</th>
+                                    <td class="px-4 py-2">{{ \Carbon\Carbon::parse($showRendezvous->created_at)->locale('fr')->isoFormat('D MMMM YYYY à HH:mm') }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="px-4 py-2 font-medium text-gray-600">Modifier le</th>
+                                    <td class="px-4 py-2">{{ \Carbon\Carbon::parse($showRendezvous->updated_at)->locale('fr')->isoFormat('D MMMM YYYY à HH:mm') }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            @else
+                <p class="text-center text-gray-500">Rendez vous introuvable.</p>
+            @endif
+
+            <div class="flex justify-end">
+                <flux:modal.close>
+                    <flux:button variant="filled">Fermer</flux:button>
+                </flux:modal.close>
+            </div>
+        </div>
+    </flux:modal>
 
     <!-- Barre de recherche -->
     <div style="padding: 5px;"></div>
@@ -107,6 +155,7 @@
                             <flux:dropdown>
                                 <flux:button icon:trailing="chevron-down" variant="primary">Options</flux:button>
                                 <flux:menu>
+                                    <flux:menu.item icon="search" kbd="👀" wire:click="show({{ $rendezvous->id }})">Voir</flux:menu.item>
                                     <flux:menu.item icon="pencil-square" kbd="✏️" wire:click="edit({{ $rendezvous->id }})">Modifier</flux:menu.item>
                                     <flux:menu.item icon="trash" variant="danger" kbd="🗑️" wire:click="delete({{ $rendezvous->id }})">Supprimer</flux:menu.item>
                                 </flux:menu>

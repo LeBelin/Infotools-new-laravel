@@ -13,6 +13,7 @@ class Commerciaux extends Component
     public $commerciaux;
     public $commercialId;
     public $commercialName;
+    public $showCommercial;
     public $showSuccessMessage = false;
     
     // Affichage des commerciaux
@@ -24,6 +25,15 @@ class Commerciaux extends Component
     public function render()
     {
         return view('livewire.commerciaux');
+    }
+
+    public function show($id)
+    {
+        $commercial = Commercial::find($id);
+        if ($commercial) {
+            $this->showCommercial = $commercial;
+            Flux::modal('show-commercial')->show();
+        }
     }
 
     //refresh a l'ajout d'un commercial

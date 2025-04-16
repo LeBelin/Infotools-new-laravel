@@ -16,6 +16,7 @@
         <div style="padding: 5px;"></div>
     @endif
 
+    <!-- Modal supression du prospect -->
     <flux:modal name="delete-prospect" class="min-w-[22rem]">
         <div class="space-y-6">
         @if($prospectId)
@@ -40,6 +41,51 @@
         </div>
     </flux:modal>
 
+        <!-- Affiche les informations du prospect demandées -->
+        <flux:modal name="show-prospect" class="min-w-[22rem]">
+        <div class="space-y-6">
+            @if($showProspect)
+                <div class="space-y-4">
+                    <flux:heading size="lg">Informations du prospect</flux:heading>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left">
+                            <tbody class="divide-y divide-gray-100">
+                                <tr>
+                                    <th class="px-4 py-2 font-medium text-gray-600 w-1/3">Nom</th>
+                                    <td class="px-4 py-2">{{ $showProspect->nom }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="px-4 py-2 font-medium text-gray-600">Email</th>
+                                    <td class="px-4 py-2">{{ $showProspect->email }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="px-4 py-2 font-medium text-gray-600">Téléphone</th>
+                                    <td class="px-4 py-2">{{ $showProspect->telephone }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="px-4 py-2 font-medium text-gray-600">Adresse</th>
+                                    <td class="px-4 py-2">{{ $showProspect->adresse }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="px-4 py-2 font-medium text-gray-600">Créé le</th>
+                                    <td class="px-4 py-2">{{ $showProspect->created_at->format('d/m/Y à H:i') }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            @else
+                <p class="text-center text-gray-500">Prospect introuvable.</p>
+            @endif
+
+            <div class="flex justify-end">
+                <flux:modal.close>
+                    <flux:button variant="filled">Fermer</flux:button>
+                </flux:modal.close>
+            </div>
+        </div>
+    </flux:modal>
 
 
     <!-- Barre de recherche -->
@@ -102,6 +148,7 @@
                             <flux:dropdown>
                                 <flux:button icon:trailing="chevron-down" variant="primary">Options</flux:button>
                                 <flux:menu>
+                                    <flux:menu.item icon="search" kbd="👀" wire:click="show({{ $prospect->id }})">Voir</flux:menu.item>
                                     <flux:menu.item icon="pencil-square" kbd="✏️" wire:click="edit({{ $prospect->id }})">Modifier</flux:menu.item>
                                     <flux:menu.item icon="trash" variant="danger" kbd="🗑️" wire:click="delete({{ $prospect->id }})">Supprimer</flux:menu.item>
                                 </flux:menu>

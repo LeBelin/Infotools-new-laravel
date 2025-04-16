@@ -13,6 +13,7 @@ class Produits extends Component
     public $produits;
     public $produitId;
     public $produitName;
+    public $showProduit;
     public $showSuccessMessage = false;
     
     // Affichage des clients
@@ -24,6 +25,15 @@ class Produits extends Component
     public function render()
     {
         return view('livewire.produits');
+    }
+
+    public function show($id)
+    {
+        $produit = Produit::find($id);
+        if ($produit) {
+            $this->showProduit = $produit;
+            Flux::modal('show-produit')->show();
+        }
     }
 
     //refresh a l'ajout d'un produit

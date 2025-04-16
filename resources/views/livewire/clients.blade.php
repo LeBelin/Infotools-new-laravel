@@ -81,7 +81,7 @@
 
             <div class="flex justify-end">
                 <flux:modal.close>
-                    <flux:button variant="ghost">Fermer</flux:button>
+                    <flux:button variant="filled">Fermer</flux:button>
                 </flux:modal.close>
             </div>
         </div>

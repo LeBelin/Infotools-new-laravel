@@ -13,6 +13,7 @@ class Prospects extends Component
     public $prospects;
     public $prospectId;
     public $prospectName;
+    public $showProspect;
     public $showSuccessMessage = false;
     
     // Affichage des prospects
@@ -24,6 +25,15 @@ class Prospects extends Component
     public function render()
     {
         return view('livewire.prospects');
+    }
+
+    public function show($id)
+    {
+        $prospect = Prospect::find($id);
+        if ($prospect) {
+            $this->showProspect = $prospect;
+            Flux::modal('show-prospect')->show();
+        }
     }
 
     //refresh a l'ajout d'un prospect

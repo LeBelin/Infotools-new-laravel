@@ -13,7 +13,8 @@
         <flux:callout variant="success" icon="check-circle" heading="Produit supprimé avec succès !" />
         <div style="padding: 5px;"></div>
     @endif
-
+    
+    <!-- Modal supression du produit -->
     <flux:modal name="delete-produit" class="min-w-[22rem]">
         <div class="space-y-6">
         @if($produitId)
@@ -38,6 +39,55 @@
         </div>
     </flux:modal>
 
+    <!-- Affiche les informations du produit demandées -->
+    <flux:modal name="show-produit" class="min-w-[22rem]">
+        <div class="space-y-6">
+            @if($showProduit)
+                <div class="space-y-4">
+                    <flux:heading size="lg">Informations du produit</flux:heading>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left">
+                            <tbody class="divide-y divide-gray-100">
+                                <tr>
+                                    <th class="px-4 py-2 font-medium text-gray-600 w-1/3">Nom</th>
+                                    <td class="px-4 py-2">{{ $showProduit->nom_produit }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="px-4 py-2 font-medium text-gray-600">Description</th>
+                                    <td class="px-4 py-2">{{ $showProduit->description }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="px-4 py-2 font-medium text-gray-600">Prix</th>
+                                    <td class="px-4 py-2"><flux:badge color="lime">{{ $showProduit->prix }} €</flux:badge></td>
+                                </tr>
+                                <tr>
+                                    <th class="px-4 py-2 font-medium text-gray-600">Stock</th>
+                                    <td class="px-4 py-2">{{ $showProduit->stock }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="px-4 py-2 font-medium text-gray-600">Créé le</th>
+                                    <td class="px-4 py-2">{{ \Carbon\Carbon::parse($showProduit->created_at)->locale('fr')->isoFormat('D MMMM YYYY à HH:mm') }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="px-4 py-2 font-medium text-gray-600">Modifier le</th>
+                                    <td class="px-4 py-2">{{ \Carbon\Carbon::parse($showProduit->updated_at)->locale('fr')->isoFormat('D MMMM YYYY à HH:mm') }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            @else
+                <p class="text-center text-gray-500">Produit introuvable.</p>
+            @endif
+
+            <div class="flex justify-end">
+                <flux:modal.close>
+                    <flux:button variant="filled">Fermer</flux:button>
+                </flux:modal.close>
+            </div>
+        </div>
+    </flux:modal>
 
 
     <!-- Barre de recherche -->
@@ -100,6 +150,7 @@
                             <flux:dropdown>
                             <flux:button icon:trailing="chevron-down" variant="primary">Options</flux:button>
                                 <flux:menu>
+                                    <flux:menu.item icon="search" kbd="👀" wire:click="show({{ $produit->id }})">Voir</flux:menu.item>
                                     <flux:menu.item icon="pencil-square" kbd="✏️" wire:click="edit({{ $produit->id }})">Modifier</flux:menu.item>
                                     <flux:menu.item icon="trash" variant="danger" kbd="🗑️" wire:click="delete({{ $produit->id }})">Supprimer</flux:menu.item>
                                 </flux:menu>

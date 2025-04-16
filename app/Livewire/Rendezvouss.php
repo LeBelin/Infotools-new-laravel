@@ -13,6 +13,7 @@ class Rendezvouss extends Component
     public $rendezvous;
     public $rendezvousId;
     public $rendezvousName;
+    public $showRendezvous;
     public $showSuccessMessage = false;
 
     public function mount()
@@ -23,6 +24,15 @@ class Rendezvouss extends Component
     public function render()
     {
         return view('livewire.rendezvous');
+    }
+
+    public function show($id)
+    {
+        $rendezvous = Rendezvous::find($id);
+        if ($rendezvous) {
+            $this->showRendezvous = $rendezvous;
+            Flux::modal('show-rendezvous')->show();
+        }
     }
 
     //refresh a l'ajout d'une rendezvous
