@@ -69,10 +69,6 @@
             </div>
         </div>
 
-
-
-
-
         <!-- Stats Section -->
         <div class="relative overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
             <section class="flex items-center justify-between p-4">
