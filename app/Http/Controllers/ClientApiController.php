@@ -3,17 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Commercial;
+use App\Models\Client;
 
-class CommerciauxApiController extends Controller
+class ClientApiController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $commercial = Commercial::all();
-        return Commercial::all();
+        $client = Client::all();
+        return Client::all();
     }
 
     /**
@@ -29,16 +29,16 @@ class CommerciauxApiController extends Controller
      */
     public function show(string $id)
     {
-        $commercial = Commercial::find($id);
+        $client = Client::find($id);
 
-        if (is_null($commercial)) {
-            return $this->sendError('Commercial non trouvé.');
+        if (is_null($client)) {
+            return $this->sendError('Client non trouvé.');
         }
 
         return response()->json([
             "success" => true,
-            "message" => "Commercial trouvé avec succès.",
-            "data" => $commercial
+            "message" => "Client trouvé avec succès.",
+            "data" => $client
         ]);
     }
 

@@ -3,16 +3,19 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ApiController;
-use App\Http\Controllers\CommerciauxApiController;
 use App\Http\Controllers\RendezVousApiController;
+use App\Http\Controllers\ClientApiController;
+use App\Http\Controllers\CommerciauxApiController;
 
 Route::post('login', [ApiController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('rendezvous', RendezVousApiController::class);
+    Route::apiResource('clients', ClientApiController::class);
+    Route::apiResource('commerciaux', CommerciauxApiController::class);
 });
 
 //Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('commerciaux', CommerciauxApiController::class);
+    // Route::apiResource('commerciaux', CommerciauxApiController::class)
 //});
 
 

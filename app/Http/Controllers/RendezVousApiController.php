@@ -13,11 +13,7 @@ class RendezVousApiController extends Controller
     public function index()
     {
         $rendezvous = RendezVous::all();
-        return response()->json([
-            "success" => true,
-            "message" => "Liste des rendez-vous",
-            "data" => $rendezvous
-        ]);
+        return RendezVous::all();
     }
 
     /**
@@ -26,23 +22,22 @@ class RendezVousApiController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'dateRendezVous'=>'required',
-            'descriptionRendezVous'=>'required',
-            'heureDebutRendezVous'=>'required',
-            'heureFinRendezVous'=>'required',
-            'idCommerciaux'=>'required',
-            'idProspect'=>'required',
-            'idClient'=>'required',
+            'client_id' => 'required',
+            'commercial_id' => 'required',
+            'date_rendez_vous' => 'required|date',
+            'heure_rendez_vous' => 'required',
+            'description' => 'required|string',
         ]);
 
         $rendezvous = RendezVous::create($request->all());
 
         return response()->json([
             "success" => true,
-            "message" => "Rendez-vous crée avec succès.",
+            "message" => "Rendez-vous créé avec succès.",
             "data" => $rendezvous
         ]);
     }
+
 
     /**
      * Display the specified resource.
@@ -65,36 +60,38 @@ class RendezVousApiController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        $request->validate([
-            'dateRendezVous'=>'required',
-            'descriptionRendezVous'=>'required',
-            'heureDebutRendezVous'=>'required',
-            'heureFinRendezVous'=>'required',
-            'idCommerciaux'=>'required',
-            'idProspect'=>'required',
-            'idClient'=>'required',
-        ]);
+   public function update(Request $request, string $id)
+{
+    $request->validate([
+        'client_id' => 'required',
+        'commercial_id' => 'required',
+        'date_rendez_vous' => 'required',
+        'heure_rendez_vous' => 'required',
+        'description' => 'required',
+    ]);
 
-        $input = $request->all();
-        $rendezvous->idRendezVous = $input['idRendezVous'];
-        $rendezvous->dateRendezVous = $input['dateRendezVous'];
-        $rendezvous->descriptionRendezVous = $input['descriptionRendezVous'];
-        $rendezvous->heureDebutRendezVous = $input['heureDebutRendezVous'];
-        $rendezvous->heureFinRendezVous = $input['heureFinRendezVous'];
-        $rendezvous->dateCreation = $input['dateCreation'];
-        $rendezvous->idCommerciaux = $input['idCommerciaux'];
-        $rendezvous->idProspect = $input['idProspect'];
-        $rendezvous->idClient = $input['idClient'];
-        $rendezvous->save();
+    $rendezvous = RendezVous::find($id);
 
+    if (!$rendezvous) {
         return response()->json([
-            "success" => true,
-            "message" => "Rendez-vous mis à jour avec succès.",
-            "data" => $rendezvous
-        ]);
+            'success' => false,
+            'message' => 'Rendez-vous non trouvé.',
+        ], 404);
     }
+
+    $rendezvous->client_id = $request->client_id;
+    $rendezvous->commercial_id = $request->commercial_id;
+    $rendezvous->date_rendez_vous = $request->date_rendez_vous;
+    $rendezvous->heure_rendez_vous = $request->heure_rendez_vous;
+    $rendezvous->description = $request->description;
+    $rendezvous->save();
+
+    return response()->json([
+        "success" => true,
+        "message" => "Rendez-vous mis à jour avec succès.",
+        "data" => $rendezvous
+    ]);
+}
 
     /**
      * Remove the specified resource from storage.
